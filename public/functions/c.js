@@ -101,6 +101,9 @@ export async function onRequest(context) {
       headers: { 'Content-Type': 'text/html;charset=UTF-8' }
     });
   } catch (err) {
-    return new Response('Ошибка: неверный или поврежденный ключ.', { status: 403 });
+    return new Response(`Детали ошибки: ${err.message}`, { 
+      status: 500,
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' }
+    });
   }
 }
