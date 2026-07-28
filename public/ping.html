@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ping</title>
+</head>
+<body>
+    <h1 id="ping">Doing...</h1>
+
+    <script>
+        const p = document.getElementById('ping');
+        const REQUESTS = 15;
+
+        async function measurePing() {
+            const start = performance.now();
+
+            await fetch(`https://www.gstatic.com/generate_204?r=${crypto.randomUUID()}`, {
+                cache: 'no-store',
+                mode: 'no-cors'
+            });
+
+            return performance.now() - start;
+        }
+
+        (async () => {
+            const times = [];
+
+            for (let i = 0; i < REQUESTS; i++) {
+                times.push(await measurePing());
+            }
+
+            times.sort((a, b) => a - b);
+
+            const trimmed = times.slice(2, -2);
+            const average = trimmed.reduce((sum, value) => sum + value, 0) / trimmed.length;
+
+            p.textContent = `Ping: ${Math.round(average)} ms`;
+        })();
+    </script>
+</body>
+</html>
