@@ -1,7 +1,5 @@
 {
-  "cleanUrls": true
-}
-{
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/c", "destination": "/api/c" }
   ]
